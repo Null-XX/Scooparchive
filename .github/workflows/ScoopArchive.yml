@@ -43,6 +43,8 @@ jobs:
         scoop install -k liberica8-full-jdk liberica11-full-jdk liberica17-full-jdk liberica-full-jdk 
         scoop install -k gradle maven jenv idea-ultimate jadx
         scoop install -k python
+        scoop install -k nonportable/burp-suite-pro-np@2024.5
+        scoop install -k extras/tableplus
         scoop install -k codeql osv-scanner
         scoop install -k extras/sublime-text vscode obsidian xmlnotepad sumatrapdf
         scoop install -k windowsdesktop-runtime-lts windows-terminal
