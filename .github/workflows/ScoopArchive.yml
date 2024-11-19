@@ -70,7 +70,10 @@ jobs:
         & $env:SCOOPpy -m pip install --upgrade pip
         & $env:SCOOPpy -m pip -V
         & $env:SCOOPpy -m pip install sqlmap bs4 XlsxWriter tqdm python-libnmap pyDes pipx openpyxl tldextract
-        & $env:SCOOPpy -m pip install colorama rncryptor pandas requests pycryptodome beautifulsoup4 chardet aiohttp
+        & $env:SCOOPpy -m pip install colorama rncryptor pandas requests pycryptodome beautifulsoup4 chardet
+        & $env:SCOOPpy -m pip install subprocess pocsuite qrcode accelerate androguard docx2pdf docx2txt 
+        & $env:SCOOPpy -m pip install dsinternals flask gradio ldapdomaindump simplejson python-magic python-docx
+        & $env:SCOOPpy -m pip install pysocks pycryptodomex pyopenssl pyreadline
         git clone --depth 1 https://github.com/r0oth3x49/ghauri.git D:\00PackageManager\ghauri
         & $env:SCOOPpy -m pip freeze
 
