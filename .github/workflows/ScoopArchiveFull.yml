@@ -226,7 +226,7 @@ jobs:
     #         Add-MpPreference -ExclusionPath $Path
     #     }
     
-    - name: 'Configure Software Environment'
+    - name: 'Configure Golang Environment'
       shell: pwsh
       run: |
         # 配置七牛云代理
@@ -236,9 +236,13 @@ jobs:
         go env -w GOPATH="D:\00PackageManager\Golang\go"
         go env -w GOMODCACHE="D:\00PackageManager\Golang\go\pkg\mod"
         go env -w GOCACHE="D:\00PackageManager\Golang\go-build"
-        pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/
-        pip config set install.trusted-host mirrors.cloud.tencent.com
 
+    # - name: 'Configure pip Environment'
+    #   shell: pwsh
+    #   run: |
+    #     pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/
+    #     pip config set install.trusted-host mirrors.cloud.tencent.com
+        
     - name: 'Compress Scoop Directory'
       shell: pwsh
       run: |
