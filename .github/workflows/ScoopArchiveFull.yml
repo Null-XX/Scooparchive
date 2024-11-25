@@ -200,10 +200,10 @@ jobs:
     # - name: 'Configure Registry Settings'
     #   shell: pwsh
     #   run: |
-    #       # 禁用 Edge Bing 侧边栏和搜索建议
-    #       reg add HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge /v HubsSidebarEnabled /t REG_DWORD /d 0x00000000 /f
-    #       reg add HKCU\Software\Policies\Microsoft\Windows\explorer /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
-    #       reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v EnableFeeds /d 0 /t reg_dword /f
+    #     # 禁用 Edge Bing 侧边栏和搜索建议
+    #     reg add HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge /v HubsSidebarEnabled /t REG_DWORD /d 0x00000000 /f
+    #     reg add HKCU\Software\Policies\Microsoft\Windows\explorer /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
+    #     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v EnableFeeds /d 0 /t reg_dword /f
 
     # - name: 'powercfg'
     #   shell: pwsh
