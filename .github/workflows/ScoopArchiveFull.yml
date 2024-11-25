@@ -64,7 +64,7 @@ jobs:
         scoop install -k clash-verge-rev
         scoop install -k gogo spray zombie fscan
         scoop install -k crawlergo ffuf fofax goby hashcat ksubdomain netspy pdtm 
-        scoop install -k eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc pdfpatcher picgo pixpin
+        scoop install -k eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc picgo pixpin
 
     - name: 'Global install Required Tools'
       shell: pwsh 
