@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest 
     environment: dev
     steps:
-    - name: 'Crawce Directory'
+    - name: Create Working Directories
       shell: pwsh
       run: |
         mkdir "D:\00PackageManager\"
@@ -16,13 +16,13 @@ jobs:
         mkdir "D:\00PackageManager\chocolatey"
         mkdir "D:\00PackageManager\Windows_Index"
         mkdir "D:\00PackageManager\Golang"
-        mkdir "D:\00PackageManager\golang\go"
+        mkdir "D:\00PackageManager\Golang\go"
         mkdir "D:\00PackageManager\Golang\go-build"
         mkdir "D:\01Sync"
         mkdir "D:\01Sync\Sync\Zotero"
         mkdir "D:\Workstation"
         
-    - name: 'Set up Scoop'
+    - name: Install Scoop
       shell: pwsh
       run: |
         $env:SCOOP='D:\00PackageManager\Scoop'
@@ -39,7 +39,7 @@ jobs:
         
         echo "$env:SCOOP\shims" >> $env:GITHUB_PATH
 
-    - name: 'Setup Scoop aria2'
+    - name: Configure Scoop to Use Aria2
       shell: pwsh 
       run: |
         scoop install -k aria2 sudo git 7zip
@@ -50,15 +50,14 @@ jobs:
         scoop config aria2-max-connection-per-server 16
         scoop config aria2-min-split-size 4M
                  
-    - name: 'Install Required Tools'
+    - name: Install Common Scoop Tools
       shell: pwsh 
       run: |
         scoop install -k innounp dark anew apktool gcc nuget shellcheck
         scoop install -k biome jq yq vim curl wget base64 gawk grep sed less touch which cwrsync cacert openssl-light autocorrect fd
         scoop install -k liberica8-full-jdk liberica11-full-jdk liberica17-full-jdk liberica-full-jdk 
         scoop install -k gradle maven jenv idea-ultimate jadx
-        scoop install -k python
-        scoop install -k ruby rust go
+        scoop install -k python ruby rust go
         scoop install -k nodejs-lts-np yarn 
         scoop install -k codeql osv-scanner yara 
         scoop install -k extras/sublime-text vscode obsidian xmlnotepad sumatrapdf zotero oss-browser sharex
@@ -70,7 +69,7 @@ jobs:
         scoop install -k crawlergo ffuf fofax goby hashcat ksubdomain netspy pdtm 
         scoop install -k eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc picgo pixpin ssh-config
 
-    - name: 'Install Latex'
+    - name: Install LaTeX Environment
       shell: pwsh 
       run: |
         scoop install tinytex
@@ -78,7 +77,7 @@ jobs:
         & $env:SCOOPtlmgr update --self --all
         & $env:SCOOPtlmgr install parskip fontawesome5ca ctex
          
-    - name: 'Show scoop config'
+    - name: Show Scoop Configuration
       shell: pwsh
       run: |
         scoop cache rm *
@@ -87,23 +86,23 @@ jobs:
         scoop bucket list
         scoop config list
 
-    # - name: 'Global install Required Tools'
+    # - name: 'Install Global Scoop Tools'
     #   shell: pwsh 
     #   run: |
     #     sudo scoop install -k -g windowsdesktop-runtime-lts windows-terminal
 
-    - name: 'Global Downloads Required Tools'
+    - name: 'Download Global Scoop Tools'
       shell: pwsh 
       run: |
         scoop download windowsdesktop-runtime-lts windows-terminal
 
-    # - name: 'chocolatey install Required Tools'
+    # - name: 'Install Chocolatey Tools'
     #   shell: pwsh 
     #   run: |
     #     sudo choco install --ignore-detected-reboot --ignorechecksum -y DotNet3.5 dotnetfx vcredist140 vcredist2015
     #     sudo choco install --ignore-detected-reboot --ignorechecksum -y bandizip mysql-cli remove-empty-directories ssh-copy-id veracrypt
 
-    - name: 'Downloads Pip Packages'
+    - name: 'Install Python Packages'
       shell: pwsh
       run: |
         echo "D:\00PackageManager\Scoop\apps\python\current\Scripts" >> $GITHUB_PATH
@@ -118,7 +117,7 @@ jobs:
         git clone --depth 1 https://github.com/r0oth3x49/ghauri.git D:\00PackageManager\ghauri
         & $env:SCOOPpy -m pip freeze
 
-    - name: Clone GitHub Repositories
+    - name: 'Clone GitHub Repositories'
       shell: pwsh
       run: |
         function Clone-Repository {
@@ -170,7 +169,7 @@ jobs:
           -RepoUrl 'https://github.com/kenyon-wong/MyTools.git' `
           -FolderName 'MyTools'
 
-    # - name: 'Cleanup appx packages'
+    # - name: 'Uninstall Unwanted Appx Packages'
     #   shell: pwsh
     #   run: |
     #     PowerShell "Get-AppxPackage *Clipchamp* -AllUsers | Remove-AppxPackage"
@@ -200,15 +199,15 @@ jobs:
     #     PowerShell "Get-AppxPackage *microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage"
     #     PowerShell "Get-AppxPackage *Bing* -AllUsers | Remove-AppxPackage"
 
-    # - name: 'zhucebiao'
+    # - name: 'Configure Registry Settings'
     #   shell: pwsh
     #   run: |
-    #       # 隐藏edge bing
+    #       # 禁用 Edge Bing 侧边栏和搜索建议
     #       reg add HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge /v HubsSidebarEnabled /t REG_DWORD /d 0x00000000 /f
     #       reg add HKCU\Software\Policies\Microsoft\Windows\explorer /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
     #       reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v EnableFeeds /d 0 /t reg_dword /f
     
-    # - name: 'Windows Defender'
+    # - name: 'Add Windows Defender Exclusions'
     #   shell: pwsh
     #   run: |
     #     # 使用 $env:USERNAME 环境变量来获取当前用户的用户名
@@ -227,7 +226,7 @@ jobs:
     #         Add-MpPreference -ExclusionPath $Path
     #     }
     
-    - name: 'Confile Soft env'
+    - name: 'Configure Software Environment'
       shell: pwsh
       run: |
         # 配置七牛云代理
