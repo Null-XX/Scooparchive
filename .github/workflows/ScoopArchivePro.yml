@@ -50,6 +50,7 @@ jobs:
         scoop install -k firefox googlechrome
         scoop install -k keepassxc openark kubectl sslscan sqlitestudio keepass-plugin-keepassrpc colortool
         scoop install -k dupeGuru dismplusplus renamer everything powertoys TrafficMonitor snipaste vncviewer sysinternals
+        scoop install -k clash-verge-rev
         scoop install -k gogo spray zombie fscan
 
     - name: 'Install Latex'
