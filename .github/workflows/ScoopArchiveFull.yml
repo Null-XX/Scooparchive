@@ -204,6 +204,11 @@ jobs:
     #       reg add HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge /v HubsSidebarEnabled /t REG_DWORD /d 0x00000000 /f
     #       reg add HKCU\Software\Policies\Microsoft\Windows\explorer /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
     #       reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v EnableFeeds /d 0 /t reg_dword /f
+
+    # - name: 'powercfg'
+    #   shell: pwsh
+    #   run: |
+    #     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
     
     # - name: 'Add Windows Defender Exclusions'
     #   shell: pwsh
@@ -236,6 +241,12 @@ jobs:
         go env -w GOCACHE="D:\00PackageManager\Golang\go-build"
 
     # - name: 'Configure pip Environment'
+    #   shell: pwsh
+    #   run: |
+    #     pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/
+    #     pip config set install.trusted-host mirrors.cloud.tencent.com
+
+    # - name: 'Install Chocolatey'
     #   shell: pwsh
     #   run: |
     #     pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/
