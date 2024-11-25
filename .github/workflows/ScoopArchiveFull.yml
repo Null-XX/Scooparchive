@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest 
     environment: dev
     steps:
-    - name: 'Set up Scoop'
+    - name: 'Crawce Directory'
       shell: pwsh
       run: |
         mkdir "D:\00PackageManager\"
@@ -21,6 +21,10 @@ jobs:
         mkdir "D:\01Sync"
         mkdir "D:\01Sync\Sync\Zotero"
         mkdir "D:\Workstation"
+        
+    - name: 'Set up Scoop'
+      shell: pwsh
+      run: |
         $env:SCOOP='D:\00PackageManager\Scoop'
         [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
         Set-ExecutionPolicy RemoteSigned -scope CurrentUser 
@@ -64,18 +68,7 @@ jobs:
         scoop install -k clash-verge-rev
         scoop install -k gogo spray zombie fscan
         scoop install -k crawlergo ffuf fofax goby hashcat ksubdomain netspy pdtm 
-        scoop install -k eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc picgo pixpin
-
-    - name: 'Global install Required Tools'
-      shell: pwsh 
-      run: |
-        sudo scoop install -k -g windowsdesktop-runtime-lts windows-terminal
-
-    - name: 'chocolatey install Required Tools'
-      shell: pwsh 
-      run: |
-        sudo choco install --ignore-detected-reboot --ignorechecksum -y DotNet3.5 dotnetfx vcredist140 vcredist2015
-        sudo choco install --ignore-detected-reboot --ignorechecksum -y bandizip mysql-cli remove-empty-directories ssh-copy-id veracrypt
+        scoop install -k eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc picgo pixpin ssh-config
 
     - name: 'Install Latex'
       shell: pwsh 
@@ -93,6 +86,22 @@ jobs:
         scoop list
         scoop bucket list
         scoop config list
+
+    # - name: 'Global install Required Tools'
+    #   shell: pwsh 
+    #   run: |
+    #     sudo scoop install -k -g windowsdesktop-runtime-lts windows-terminal
+
+    - name: 'Global Downloads Required Tools'
+      shell: pwsh 
+      run: |
+        scoop download windowsdesktop-runtime-lts windows-terminal
+
+    # - name: 'chocolatey install Required Tools'
+    #   shell: pwsh 
+    #   run: |
+    #     sudo choco install --ignore-detected-reboot --ignorechecksum -y DotNet3.5 dotnetfx vcredist140 vcredist2015
+    #     sudo choco install --ignore-detected-reboot --ignorechecksum -y bandizip mysql-cli remove-empty-directories ssh-copy-id veracrypt
 
     - name: 'Downloads Pip Packages'
       shell: pwsh
@@ -156,17 +165,92 @@ jobs:
           -RepoUrl 'https://github.com/github/codeql.git' `
           -FolderName 'CodeqlRules'
 
-    # - name: 'Compress Scoop Directory'
+        # Clone MyTools
+        Clone-Repository `
+          -RepoUrl 'https://github.com/kenyon-wong/MyTools.git' `
+          -FolderName 'MyTools'
+
+    # - name: 'Cleanup appx packages'
     #   shell: pwsh
     #   run: |
-    #     $env:SCOOP7z='D:\00PackageManager\Scoop\apps\7zip\current\7z.exe'
-    #     & $env:SCOOP7z a -mx9 -t7z 'D:\00PackageManager.7z' 'D:\00PackageManager\*'
-    #     & $env:SCOOP7z l 'D:\00PackageManager.7z'
+    #     PowerShell "Get-AppxPackage *Clipchamp* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.549981C3F5F10* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.BingNews* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.GetHelp* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.Getstarted* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.MicrosoftStickyNotes* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.MixedReality.Portal* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.Office.OneNote* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.People* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.PowerAutomateDesktop* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.SkypeApp* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.WindowsFeedbackHub* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.Xbox* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *MicrosoftCorporationII.QuickAssist* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *MicrosoftTeams* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.Windows.Ai.Copilot.Provider* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Microsoft.WindowsCamera* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage"
+    #     PowerShell "Get-AppxPackage *Bing* -AllUsers | Remove-AppxPackage"
 
-    # - name: 'Upload Compressed Scoop Directory'
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Scoop-00PackageManager
-    #     path: D:\00PackageManager.7z
-    #     retention-days: 3
-    #     compression-level: 0
+    # - name: 'zhucebiao'
+    #   shell: pwsh
+    #   run: |
+    #       # 隐藏edge bing
+    #       reg add HKEY_CURRENT_USER\Software\Policies\Microsoft\Edge /v HubsSidebarEnabled /t REG_DWORD /d 0x00000000 /f
+    #       reg add HKCU\Software\Policies\Microsoft\Windows\explorer /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
+    #       reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v EnableFeeds /d 0 /t reg_dword /f
+    
+    # - name: 'Windows Defender'
+    #   shell: pwsh
+    #   run: |
+    #     # 使用 $env:USERNAME 环境变量来获取当前用户的用户名
+    #     $UserName = $env:USERNAME
+    #     $ExclusionPaths = @(
+    #         "C:\Users\$UserName\.pdtm",
+    #         "C:\Users\$UserName\Desktop",
+    #         "C:\Users\$UserName\Downloads",
+    #         "C:\Users\$UserName\nuclei-templates",
+    #         "C:\Users\$UserName\Nutstore",
+    #         "D:\00PackageManager",
+    #         "D:\01Sync",
+    #         "D:\Workstation"
+    #     ) 
+    #     foreach ($Path in $ExclusionPaths) {
+    #         Add-MpPreference -ExclusionPath $Path
+    #     }
+    
+    - name: 'Confile Soft env'
+      shell: pwsh
+      run: |
+        # 配置七牛云代理
+        go env -w GO111MODULE=on
+        go env -w GOPROXY="https://goproxy.cn,direct"
+        # 修改默认缓存位置
+        go env -w GOPATH="D:\00PackageManager\Golang\go"
+        go env -w GOMODCACHE="D:\00PackageManager\Golang\go\pkg\mod"
+        go env -w GOCACHE="D:\00PackageManager\Golang\go-build"
+        pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/
+        pip config set install.trusted-host mirrors.cloud.tencent.com
+
+    - name: 'Compress Scoop Directory'
+      shell: pwsh
+      run: |
+        $env:SCOOP7z='D:\00PackageManager\Scoop\apps\7zip\current\7z.exe'
+        & $env:SCOOP7z a -mx9 -t7z 'D:\00PackageManager.7z' 'D:\00PackageManager\*' 'D:\01Sync\' 'D:\Workstation\'
+        & $env:SCOOP7z l 'D:\00PackageManager.7z'
+
+    - name: 'Upload Compressed Scoop Directory'
+      uses: actions/upload-artifact@v4
+      with:
+        name: Scoop-00PackageManager
+        path: D:\00PackageManager.7z
+        retention-days: 3
+        compression-level: 0
