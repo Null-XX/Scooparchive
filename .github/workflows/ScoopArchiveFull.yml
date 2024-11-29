@@ -66,6 +66,7 @@ jobs:
         scoop install -k clash-verge-rev eclipse-mat exiftool ffmpeg fscapture honeyview masscode nircmd office-tool-plus pandoc picgo pixpin ssh-config
         scoop install -k gogo spray zombie fscan
         scoop install -k crawlergo ffuf fofax goby hashcat ksubdomain netspy pdtm 
+        scoop install -k chsrc
 
     - name: Install LaTeX Environment
       shell: pwsh 
