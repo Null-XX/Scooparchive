@@ -39,7 +39,7 @@ jobs:
     - name: 'Install CodeQL'
       shell: pwsh 
       run: |
-        scoop install codeql
+        scoop install codeql liberica8-full-jdk liberica11-full-jdk liberica17-full-jdk liberica-full-jdk gradle maven
         
     - name: 'Show scoop config'
       shell: pwsh
@@ -49,7 +49,6 @@ jobs:
         scoop list
         scoop bucket list
         scoop config list
-
 
     - name: Clone GitHub Repositories
       shell: pwsh
