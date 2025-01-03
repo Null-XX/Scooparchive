@@ -68,6 +68,11 @@ jobs:
         scoop install -k crawlergo ffuf fofax goby hashcat ksubdomain netspy pdtm 
         scoop install -k chsrc
 
+    - name: gem Install base64
+      shell: pwsh 
+      run: |
+        gem install base64
+
     - name: Install LaTeX Environment
       shell: pwsh 
       run: |
