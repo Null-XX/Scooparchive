@@ -20,7 +20,6 @@ jobs:
         scoop bucket add nirsoft
         scoop bucket add java
         scoop bucket add nonportable
-        scoop bucket add ktools https://github.com/kenyon-wong/ktools
         
         echo "$env:SCOOP\shims" >> $env:GITHUB_PATH
 
@@ -40,6 +39,7 @@ jobs:
       run: |
         scoop install -k innounp dark
         scoop install -k biome jq yq vim curl wget base64 gawk grep sed less touch which cwrsync cacert openssl-light autocorrect fd
+        scoop install -k dotnet3-sdk
         scoop cache rm *
         scoop cleanup -k *
         
